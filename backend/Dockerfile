@@ -7,6 +7,7 @@ WORKDIR /app
 # Install Chromium and dependencies for Selenium
 RUN apk add --no-cache \
     chromium \
+    chromium-chromedriver \
     nss \
     freetype \
     harfbuzz \
