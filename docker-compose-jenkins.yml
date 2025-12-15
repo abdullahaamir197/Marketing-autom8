@@ -14,7 +14,10 @@ services:
 
   # 2. Backend (Different Port, Volume for Code)
   backend-jenkins:
-    image: node:20-alpine
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: autom8-backend-jenkins-img # Tag the built image explicitly
     container_name: autom8-backend-jenkins
     working_dir: /app
     volumes:

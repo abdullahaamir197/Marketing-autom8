@@ -1,0 +1,5 @@
+node_modules/
+.env
+*.zip
+bundle_backend.ps1
+frontend/dist
