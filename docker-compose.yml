@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # 1. Database Service (MongoDB)
+  mongodb:
+    image: mongo:latest
+    container_name: autom8-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db # Persistent Volume Attached
+    networks:
+      - autom8-network
+
+  # 2. Backend Service
+  backend:
+    image: abdullahaamir197/autom8-backend:latest
+    container_name: autom8-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongodb:27017/marketing_automation
+    depends_on:
+      - mongodb
+    networks:
+      - autom8-network
+
+  # 3. Frontend Service
+  frontend:
+    image: abdullahaamir197/autom8-frontend:latest
+    container_name: autom8-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - autom8-network
+
+volumes:
+  mongo-data:
+
+
+networks:
+  autom8-network:
+    driver: bridge
