@@ -14,7 +14,7 @@ services:
 
   # 2. Backend (Different Port, Volume for Code)
   backend-jenkins:
-    image: node:18-alpine
+    image: node:20-alpine
     container_name: autom8-backend-jenkins
     working_dir: /app
     volumes:
@@ -33,7 +33,7 @@ services:
 
   # 3. Frontend (Different Port, Volume for Code)
   frontend-jenkins:
-    image: node:18-alpine
+    image: node:20-alpine
     container_name: autom8-frontend-jenkins
     working_dir: /app
     volumes:
