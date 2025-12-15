@@ -33,7 +33,7 @@ pipeline {
 
         stage('Verify') {
             steps {
-                sh 'sleep 15' // Wait for containers to start and stabilize
+                sh 'sleep 60' // Wait for containers to start and stabilize
                 sh 'docker ps'
             }
         }
