@@ -17,6 +17,13 @@ export default defineConfig({
   preview: {
     host: true,
     allowedHosts: ['autom8-frontend-jenkins', 'localhost'],
-    port: 5173
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: process.env.VITE_API_TARGET || 'http://backend-jenkins:5000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 })
