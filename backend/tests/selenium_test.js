@@ -3,7 +3,12 @@ const chrome = require('selenium-webdriver/chrome');
 const { expect } = require('chai');
 
 // Configuration
-const APP_URL = process.env.APP_URL || 'http://localhost:5173'; // Default to local Vite port
+// Configuration
+// In Jenkins, backend and frontend are on the same bridge network.
+// Backend container can reach frontend container by service name: 'autom8-frontend-jenkins'
+// Frontend internal port is 5173 (from Vite), exposed as 8081.
+// However, inside the Docker network, we must likely use the PRIVATE port 5173.
+const APP_URL = process.env.APP_URL || 'http://autom8-frontend-jenkins:5173';
 const TIMEOUT = 10000;
 
 describe('Marketing Automation App - Selenium Tests', function () {
