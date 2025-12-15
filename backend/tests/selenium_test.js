@@ -18,6 +18,12 @@ describe('Marketing Automation App - Selenium Tests', function () {
         options.addArguments('--disable-dev-shm-usage');
         options.addArguments('--window-size=1920,1080');
 
+        // IMPORTANT: Tell Selenium where the Chrome binary is
+        // In the Dockerfile we set ENV CHROME_BIN=/usr/bin/chromium-browser
+        if (process.env.CHROME_BIN) {
+            options.setBinaryPath(process.env.CHROME_BIN);
+        }
+
         driver = await new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
