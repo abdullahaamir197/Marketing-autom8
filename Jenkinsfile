@@ -6,6 +6,16 @@ pipeline {
     }
 
     stages {
+        stage('Cleanup') {
+            steps {
+                // Prune stopped containers and unused images to free space
+                // -a: all unused images not just dangling ones
+                // -f: force, don't ask for confirmation
+                // --volumes: prune volumes too
+                sh 'docker system prune -af --volumes || true' 
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
