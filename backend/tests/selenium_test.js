@@ -18,16 +18,25 @@ describe('Marketing Automation App - Selenium Tests', function () {
         options.addArguments('--disable-dev-shm-usage');
         options.addArguments('--window-size=1920,1080');
 
-        // IMPORTANT: Tell Selenium where the Chrome binary is
+        // IMPORTANT: Tell Selenium where the Chrome binary AND Driver are
         // In the Dockerfile we set ENV CHROME_BIN=/usr/bin/chromium-browser
+        let serviceBuilder;
+
         if (process.env.CHROME_BIN) {
             options.setBinaryPath(process.env.CHROME_BIN);
+            // Alpine installing chromium usually puts the driver at /usr/bin/chromedriver
+            serviceBuilder = new chrome.ServiceBuilder('/usr/bin/chromedriver');
         }
 
         driver = await new Builder()
             .forBrowser('chrome')
-            .setChromeOptions(options)
-            .build();
+            .setChromeOptions(options);
+
+        if (serviceBuilder) {
+            driver.setChromeService(serviceBuilder);
+        }
+
+        driver = driver.build();
     });
 
     after(async function () {
